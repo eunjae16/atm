@@ -21,7 +21,7 @@ public class UserManager {
 	public User getUser(int index) {
 		User user = this.list.get(index);
 		
-		User requestObject = new User(user.getId(), user.getPassword());
+		User requestObject = new User(user.getId(), user.getPassword(), user.getName(), user.getAccountList());
 		return requestObject;
 	}
 	
@@ -35,8 +35,7 @@ public class UserManager {
 		return user;
 	}
 	
-	
-	private int indexOfById(String id) {
+	public int indexOfById(String id) {
 		int index = -1;
 		for(User user : list) {
 			if(user.getId().equals(id))
@@ -48,7 +47,11 @@ public class UserManager {
 	public void setUser(int index, User user) {
 		this.list.set(index, user);
 	}
-	
+	public void setUser(User user, Account account) {
+		int index = indexOfById(user.getId());
+		
+		list.get(index).addAccount(account);
+	}
 	
 	public void deleteUserById(int index) {
 		this.list.remove(index);
